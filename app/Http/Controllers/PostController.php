@@ -6,7 +6,6 @@ use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class PostController extends Controller
 {
@@ -56,17 +55,17 @@ class PostController extends Controller
             'image' => 'nullable|image|max:2048',
         ]);
 
-        $imageUrl = null;
+        $imageData = null;
         if ($request->hasFile('image')) {
-            $uploaded = Cloudinary::upload($request->file('image')->getRealPath());
-            $imageUrl = $uploaded->getSecurePath();
+            $image = $request->file('image');
+            $imageData = 'data:' . $image->getMimeType() . ';base64,' . base64_encode(file_get_contents($image->getRealPath()));
         }
 
         Post::create([
             'title'       => $request->title,
             'slug'        => Str::slug($request->title) . '-' . time(),
             'body'        => $request->body,
-            'image'       => $imageUrl,
+            'image'       => $imageData,
             'user_id'     => auth()->id(),
             'category_id' => $request->category_id,
         ]);
@@ -99,17 +98,17 @@ class PostController extends Controller
             'image' => 'nullable|image|max:2048',
         ]);
 
-        $imageUrl = $post->image;
+        $imageData = $post->image;
         if ($request->hasFile('image')) {
-            $uploaded = Cloudinary::upload($request->file('image')->getRealPath());
-            $imageUrl = $uploaded->getSecurePath();
+            $image = $request->file('image');
+            $imageData = 'data:' . $image->getMimeType() . ';base64,' . base64_encode(file_get_contents($image->getRealPath()));
         }
 
         $post->update([
             'title'       => $request->title,
             'slug'        => Str::slug($request->title) . '-' . time(),
             'body'        => $request->body,
-            'image'       => $imageUrl,
+            'image'       => $imageData,
             'category_id' => $request->category_id,
         ]);
 
