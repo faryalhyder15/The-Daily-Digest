@@ -6,7 +6,7 @@
     {{-- Hero --}}
     <div class="text-center mb-5 py-5" style="background: linear-gradient(135deg, #667eea, #f093fb); border-radius: 24px; color: white;">
         <i class="fas fa-feather-alt fa-4x mb-3"></i>
-        <h1 style="font-family: 'Playfair Display', serif; font-size: 3rem;">About Ink Drop</h1>
+        <h1 style="font-family: 'Playfair Display', serif; font-size: 3rem;">About The Daily Digest</h1>
         <p style="font-size: 1.2rem; opacity: 0.9;">A place where stories come to life </p>
     </div>
 
@@ -15,7 +15,7 @@
     <div class="col-md-6">
         <h2 class="section-title mb-3">Our Mission</h2>
         <p style="color: #666; line-height: 1.9; font-size: 1.05rem;">
-            Ink Drop is a creative space dedicated to sharing inspiring stories, thoughts, and ideas. We believe every voice deserves to be heard, and every story deserves to be told.
+            The Daily Digest is a creative space dedicated to sharing inspiring stories, thoughts, and ideas. We believe every voice deserves to be heard, and every story deserves to be told.
         </p>
         <p style="color: #666; line-height: 1.9; font-size: 1.05rem;">
             Whether you're here to read, learn, or share you're in the right place. Join our growing community of writers and readers from around the world.
