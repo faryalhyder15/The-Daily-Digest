@@ -6,7 +6,7 @@ use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class PostController extends Controller
 {
@@ -56,16 +56,17 @@ class PostController extends Controller
             'image' => 'nullable|image|max:2048',
         ]);
 
-        $imagePath = null;
+        $imageUrl = null;
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('posts', 'public');
+            $uploaded = Cloudinary::upload($request->file('image')->getRealPath());
+            $imageUrl = $uploaded->getSecurePath();
         }
 
         Post::create([
             'title'       => $request->title,
             'slug'        => Str::slug($request->title) . '-' . time(),
             'body'        => $request->body,
-            'image'       => $imagePath,
+            'image'       => $imageUrl,
             'user_id'     => auth()->id(),
             'category_id' => $request->category_id,
         ]);
@@ -98,19 +99,17 @@ class PostController extends Controller
             'image' => 'nullable|image|max:2048',
         ]);
 
-        $imagePath = $post->image;
+        $imageUrl = $post->image;
         if ($request->hasFile('image')) {
-            if ($post->image) {
-                Storage::disk('public')->delete($post->image);
-            }
-            $imagePath = $request->file('image')->store('posts', 'public');
+            $uploaded = Cloudinary::upload($request->file('image')->getRealPath());
+            $imageUrl = $uploaded->getSecurePath();
         }
 
         $post->update([
             'title'       => $request->title,
             'slug'        => Str::slug($request->title) . '-' . time(),
             'body'        => $request->body,
-            'image'       => $imagePath,
+            'image'       => $imageUrl,
             'category_id' => $request->category_id,
         ]);
 
@@ -119,9 +118,6 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
-        if ($post->image) {
-            Storage::disk('public')->delete($post->image);
-        }
         $post->delete();
         return redirect('/')->with('success', 'Post deleted successfully!');
     }

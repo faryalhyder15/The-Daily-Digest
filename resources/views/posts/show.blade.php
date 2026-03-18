@@ -9,7 +9,7 @@
 
     {{-- Cover Image --}}
     @if($post->image)
-        <img src="{{ asset('storage/' . $post->image) }}" class="w-100 mb-4" style="height: 450px; object-fit: cover; border-radius: 20px; box-shadow: 0 12px 40px rgba(102,126,234,0.2);">
+        <img src="{{ $post->image }}" class="w-100 mb-4" style="height: 450px; object-fit: cover; border-radius: 20px; box-shadow: 0 12px 40px rgba(102,126,234,0.2);">
     @endif
 
     {{-- Category --}}
@@ -78,7 +78,7 @@
                 <div class="col-md-4 mb-3">
                     <div class="card h-100">
                         @if($related->image)
-                            <img src="{{ asset('storage/' . $related->image) }}" class="post-image" alt="{{ $related->title }}">
+                            <img src="{{ $related->image }}" class="post-image" alt="{{ $related->title }}">
                         @else
                             <div class="post-placeholder">
                                 <i class="fas fa-feather-alt fa-2x text-white opacity-75"></i>

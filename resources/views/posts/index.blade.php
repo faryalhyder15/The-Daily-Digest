@@ -294,7 +294,7 @@
             <div class="col-md-4">
                 <div class="post-card">
                     @if($post->image)
-                        <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}">
+                        <img src="{{ $post->image }}" alt="{{ $post->title }}">
                     @else
                         <div class="post-placeholder">
                             <i class="fas fa-feather-alt fa-2x text-white opacity-75"></i>
